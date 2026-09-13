@@ -1,0 +1,34 @@
+"use client";
+
+import { useCallback, useState } from "react";
+
+import type { ToastType } from "@/components/ui/Toast";
+
+type ToastState = {
+  message: string;
+  type: ToastType;
+} | null;
+
+export function useToast() {
+  const [toast, setToast] = useState<ToastState>(null);
+
+  const showToast = useCallback(
+    (message: string, type: ToastType = "success") => {
+      setToast({
+        message,
+        type,
+      });
+    },
+    [],
+  );
+
+  const hideToast = useCallback(() => {
+    setToast(null);
+  }, []);
+
+  return {
+    toast,
+    showToast,
+    hideToast,
+  };
+}
